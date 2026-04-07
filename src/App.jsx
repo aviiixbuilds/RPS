@@ -22,8 +22,8 @@ export default function App() {
     if (isAnimating) return;
     setIsAnimating(true);
     setResultClass('');
-    setUserEmoji('🤛'); 
-    setCompEmoji('🤛'); 
+    setUserEmoji('🤜'); 
+    setCompEmoji('🤜'); 
     setWinnerMessage('Ready...');
 
     setTimeout(() => {
@@ -102,7 +102,9 @@ export default function App() {
           </div>
           <div className="vs-text">⚔️</div>
           <div className={`fighter comp ${isAnimating ? 'anim-shake-comp' : 'anim-pop'}`}>
-            {compEmoji}
+            <span className={compEmoji !== '❓' ? 'flip-horizontal' : ''}>
+              {compEmoji}
+            </span>
           </div>
         </div>
 
@@ -129,13 +131,25 @@ export default function App() {
           <div className="history-tray">
             <div className="history-title">Recent Matches</div>
             <div className="history-list">
-              {history.slice(0, 5).map(h => (
-                <div key={h.id} className={`history-item ${h.result}`}>
-                  <span className="hist-player">{h.user}</span>
-                  <span className="hist-vs">vs</span>
-                  <span className="hist-comp">{h.comp}</span>
-                </div>
-              ))}
+              {history.map((h, index) => {
+                const roundNum = history.length - index;
+                let resultText = '';
+                if (h.result === 'win') resultText = 'You Win';
+                else if (h.result === 'lose') resultText = 'Comp Wins';
+                else resultText = 'Draw';
+                
+                return (
+                  <div key={h.id} className={`history-item ${h.result}`}>
+                    <span className="hist-round">#{roundNum}</span>
+                    <span className="hist-emojis">
+                      <span className="hist-comp">{h.comp}</span>
+                      <span className="hist-vs">vs</span>
+                      <span className="hist-player">{h.user}</span>
+                    </span>
+                    <span className="hist-result">{resultText}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
