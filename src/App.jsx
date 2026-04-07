@@ -84,26 +84,26 @@ export default function App() {
         <h1 className="title">Rock Paper Scissors</h1>
         
         <div className="scoreboard">
+          <div className="score-box comp-score">
+            <span className="player-label">Computer</span>
+            <span className="score-value">{compScore}</span>
+          </div>
+          <div className="score-divider">VS</div>
           <div className="score-box user-score">
             <span className="player-label">You</span>
             <span className="score-value">{userScore}</span>
             {streak > 1 && <div className="streak-badge">🔥 {streak} Streak</div>}
           </div>
-          <div className="score-divider">VS</div>
-          <div className="score-box comp-score">
-            <span className="player-label">Computer</span>
-            <span className="score-value">{compScore}</span>
-          </div>
         </div>
 
         <div className="battle-arena">
-          <div className={`fighter user ${isAnimating ? 'anim-shake-user' : 'anim-pop'}`}>
-            {userEmoji}
+          <div className={`fighter comp ${isAnimating ? 'anim-shake-user' : 'anim-pop'}`}>
+            {compEmoji}
           </div>
           <div className="vs-text">⚔️</div>
-          <div className={`fighter comp ${isAnimating ? 'anim-shake-comp' : 'anim-pop'}`}>
-            <span className={compEmoji !== '❓' ? 'flip-horizontal' : ''}>
-              {compEmoji}
+          <div className={`fighter user ${isAnimating ? 'anim-shake-comp' : 'anim-pop'}`}>
+            <span className={userEmoji !== '❓' ? 'flip-horizontal' : ''}>
+              {userEmoji}
             </span>
           </div>
         </div>
